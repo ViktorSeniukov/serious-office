@@ -1,0 +1,78 @@
+<script setup lang="ts">
+    import { ref } from 'vue';
+
+    const title = ref<string>('*******');
+    const isShowNoButton = ref<boolean>(true);
+
+    const onYes = () => {
+        title.value = 'Сосал?';
+        isShowNoButton.value = false;
+    };
+</script>
+
+<template>
+    <section>
+        <h1>{{ title }}</h1>
+
+        <button
+            @click="onYes"
+            class="btn btn-yes"
+        >
+            Да
+        </button>
+        <button
+            v-if="isShowNoButton"
+            class="btn btn-no"
+        >
+            Нет
+        </button>
+    </section>
+</template>
+
+<style scoped>
+section {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 50px;
+  overscroll-behavior-y: none;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: block;
+    width: 150px;
+    padding: 10px;
+    margin: 10px auto;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-yes {
+    background: green;
+}
+
+.btn-no {
+    background: red;
+}
+
+.btn:hover {
+    filter: brightness(1.2);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn:focus {
+    outline: 2px solid black;
+}
+
+</style>
