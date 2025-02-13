@@ -121,7 +121,7 @@
   font-size: 24px;
   text-decoration: none;
   text-transform: none;
-  color: light-dark(var(--dark-main), var(--light-main));
+  color: light-dark(var(--light-main), var(--dark-main));
   padding: var(--gutter) calc(var(--gutter) * 2);
   backdrop-filter: blur(4px);
 }
@@ -171,7 +171,7 @@ ul {
 }
 
 html {
-  background-color: light-dark(var(--dark-main), var(--light-main));
+  background-color: light-dark(var(--light-main), var(--dark-main));
 
   scroll-behavior: smooth;
 }
@@ -181,7 +181,7 @@ body {
   padding: 0;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  color: light-dark(var(--light-main), var(--dark-main));
+  color: light-dark(var(--dark-main), var(--light-main));
 }
 
 .hero {
