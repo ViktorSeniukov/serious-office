@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smoke</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="smoke-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<header class="hero">
+    <img class="hero__img" src="./images/hero-1.png" alt="Люди в курилке">
+    <div class="hero__content">
+        <h1 class="hero__title">Го Курить?</h1>
+
+        <a href="#rules" class="button button--bg-blur button--neon">А как курить?</a>
+    </div>
+</header>
+
+<section class="rules content" id="rules">
+    <p class="rules__description">
+        Мы курим по строго определенным правилам. Их не соблюдление карается законом
+        <img class="rules__img" src="images/if-you-incorrect.png" alt="Топор в руке">
+    </p>
+
+    <ul class="rules-list">
+        <li>
+            <h2>1. Кто ты?</h2>
+            <p>У каждого есть свой назначенный день недели, и он пропускает всех в свой день недели, а остальные проходят в порядке их дней недели</p>
+
+            <div>
+                <ul class="week">
+                    <li class="week__day week-day">
+                        <header class="week-day__header">
+                            <div class="week-day__title">Пн</div>
+                            <span>Заходишь первый</span>
+                        </header>
+                    </li>
+                    <li class="week-day week-day--current">
+                        <header class="week-day__header">
+                            <div class="week-day__title">Вт</div>
+                            <span>Допустим это сегодня</span>
+                        </header>
+
+                        <p class="week-day__description">
+                            Ты всех пропускаешь и заходишь/выходишь из/в лифт(а) последний, дверь в офис, курилка, все тоже самое, на протяжении всего маршрута до курилки
+                        </p>
+                    </li>
+                    <li class="week__day week-day">
+                        <header class="week-day__header">
+                            <div class="week-day__title">Ср</div>
+                            <span>Заходишь после понедельника</span>
+                        </header>
+                    </li>
+                    <li class="week__day week-day">
+                        <header class="week-day__header">
+                            <div class="week-day__title">Чт</div>
+                            <span>Заходишь после среды</span>
+                        </header>
+                    </li>
+                    <li class="week__day week-day">
+                        <header class="week-day__header">
+                            <div class="week-day__title">Пт</div>
+                            <span>Заходишь после Четверга</span>
+                        </header>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li>
+            <h2>2. Первый в лифте? Нажми кнопку</h2>
+
+            <img class="rules__comics" src="images/comics.png" alt="Комикс для правила Первый в лифте? Нажми кнопку">
+        </li>
+    </ul>
+</section>
+</body>
+</html>
