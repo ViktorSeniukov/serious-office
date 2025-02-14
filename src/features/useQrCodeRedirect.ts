@@ -1,3 +1,3 @@
 export const useQrCodeRedirect = (): string => {
-  return '/smoke';
+  return '/';
 };
