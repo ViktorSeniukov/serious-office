@@ -14,3 +14,4 @@ jobs:
           username: 'ViktorSeniukov'
           reponame: 'serious-office'
           token: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
+          cname: 'sharpoffice.io'
