@@ -19,3 +19,5 @@
         if (unref(isUpdate)) redirect();
     });
 </script>
+
+<template></template>

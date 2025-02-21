@@ -8,7 +8,7 @@ export const fetchFeatureFlags = async (): Promise<IRequestFeatureFlag[] | null>
     method: 'GET',
     headers: {
       'Accept': 'application/json',
-      'X-Environment-Key': import.meta.env['VITE_FLAGSMITH_API_KEY']
+      'X-Environment-Key': '5xDnMbNrDbMcyhpKwC8VPZ'
     }
   }).then((res) => res.json())
     .then((res) => data.value = res)
