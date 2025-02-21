@@ -5,16 +5,19 @@ import { createPinia } from 'pinia';
 
 import App from './App.vue';
 import router from './router';
-import { createHead, VueHeadMixin } from '@unhead/vue';
+import { setHeadInjectionHandler, VueHeadMixin } from '@unhead/vue';
+import { VueQueryPlugin } from '@tanstack/vue-query';
 import { vhPlugin } from '@/plugins/vhPlugin.ts';
+import {head} from '@/plugins/head.ts';
 
 const app = createApp(App);
 
-const head = createHead();
 app.mixin(VueHeadMixin);
-app.use(head);
+setHeadInjectionHandler(() => head);
+
 
 app.use(vhPlugin);
+app.use(VueQueryPlugin);
 
 app.use(createPinia());
 app.use(router);

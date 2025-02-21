@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import TestView from '../views/TestView.vue';
 import SmokeView from '../views/SmokeView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
-import { useQrCodeRedirect } from '@/features/useQrCodeRedirect.ts';
+import QrCodeView from '../views/QrCodeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/qrcode',
       name: 'qrcode',
-      redirect: () => useQrCodeRedirect()
+      component: QrCodeView
     },
     {
       path: '/:pathMatch(.*)*',
