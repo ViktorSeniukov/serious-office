@@ -12,7 +12,7 @@
     const {redirect} = useQrCodeRedirect();
 
     watch(data,  () => {
-        setFlags(useFlagsMapping().map(unref(data)));
+        setFlags(useFlagsMapping().map(unref(data) || []));
     });
 
     watch(isUpdate, () => {
