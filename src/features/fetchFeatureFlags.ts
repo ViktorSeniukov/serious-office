@@ -13,7 +13,6 @@ export const fetchFeatureFlags = async (): Promise<IRequestFeatureFlag[] | null>
   }).then((res) => res.json())
     .then((res) => data.value = res)
     .catch((error) => {
-      console.error('Error fetchFeatureFlags');
       throw error;
     });
 
