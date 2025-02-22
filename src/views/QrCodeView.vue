@@ -7,11 +7,11 @@
     const {isFetched} = useFeatureFlags();
     const {redirect} = useQrCodeRedirect();
 
-    // watch(isFetched, () => {
-    //     if (unref(isFetched)) {
-    //         redirect();
-    //     }
-    // });
+    watch(isFetched, () => {
+        if (unref(isFetched)) {
+            redirect();
+        }
+    });
 </script>
 
 <template>
