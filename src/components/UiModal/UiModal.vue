@@ -49,6 +49,10 @@
 </template>
 
 <style>
+body {
+  overflow: hidden;
+}
+
 .modal-mask {
   position: fixed;
   z-index: 9998;
