@@ -3,11 +3,12 @@
     import { onMounted, ref, unref } from 'vue';
     import { loadCss } from '@/utils/loadCss.ts';
     import { useHead } from '@unhead/vue';
+    import { BASE_URL } from '@/constants/baseUrl.ts';
 
     const userName = ref<string>('');
 
     const onPoop = () => {
-        fetch('http://localhost:3000/api/poop', {
+        fetch(`${BASE_URL}/api/poop`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
