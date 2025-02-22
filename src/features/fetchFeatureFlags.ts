@@ -1,22 +1,17 @@
-import { ref, unref } from 'vue';
-import type { IRequestFeatureFlag } from '@/types/IRequestFeatureFlag.ts';
+import type { FeatureFlagType } from '@/types/FeatureFlagType.ts';
 
-export const fetchFeatureFlags = async (): Promise<IRequestFeatureFlag[] | null> => {
-  const data = ref<IRequestFeatureFlag[] | null>(null);
+export const fetchFeatureFlags = async (): Promise<FeatureFlagType> => {
+  let data = {} as FeatureFlagType;
 
-  await fetch('https://edge.api.flagsmith.com/api/v1/flags', {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'X-Environment-Key': '5xDnMbNrDbMcyhpKwC8VPZ'
-    }
+  await fetch('http://localhost:3000/api/config', {
+    method: 'GET'
   }).then((res) => res.json())
-    .then((res) => data.value = res)
+    .then((res) => data = res)
     .catch((error) => {
       throw error;
     });
 
 
 
-  return unref(data);
+  return data;
 };
