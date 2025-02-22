@@ -4,6 +4,7 @@ export interface IFeatureFlags {
     qrcode_redirect: string
     ui_loader_type: UiLoaderTypes
     ui_loader_text: string
+    is_show_poo_animate: boolean
 }
 
 export type FeatureFlagType = IFeatureFlags

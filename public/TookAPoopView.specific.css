@@ -3,6 +3,9 @@
     --hsl-custom-poo-brown: 356, 11%, 24%;
     --custom-poo-brown: hsl(var(--hsl-custom-poo-brown));
 
+    --hsl-poo-pink: 340, 82%, 52%;
+    --poo-pink: hsl(340, 82%, 52%);
+
     --gutter: 8px;
 }
 
