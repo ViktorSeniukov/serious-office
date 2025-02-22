@@ -135,7 +135,7 @@
         </Poo>
     </div>
 
-    <Teleport to="body">
+    <Teleport to="#modals">
         <!-- use the modal component, pass in the prop -->
         <UiModal
             @close="hideModal"

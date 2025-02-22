@@ -10,6 +10,8 @@
 <template>
     <RouterView />
     <VueQueryDevtools />
+
+    <div id="modals"></div>
 </template>
 
 <style scoped>
