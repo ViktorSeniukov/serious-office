@@ -6,6 +6,7 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 import { setHeadInjectionHandler, VueHeadMixin } from '@unhead/vue';
+import SimpleAnalytics from 'simple-analytics-vue';
 import { VueQueryPlugin } from '@tanstack/vue-query';
 import { vhPlugin } from '@/plugins/vhPlugin.ts';
 import {head} from '@/plugins/head.ts';
@@ -15,6 +16,7 @@ const app = createApp(App);
 app.mixin(VueHeadMixin);
 setHeadInjectionHandler(() => head);
 
+app.use(SimpleAnalytics, { skip: process.env.NODE_ENV !== 'production' });
 
 app.use(vhPlugin);
 app.use(VueQueryPlugin);
