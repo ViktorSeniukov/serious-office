@@ -1,6 +1,8 @@
 import { loadCss } from '@/utils/loadCss.ts';
 
 export const useFallingEffect = (fallingText: string) => {
+    const fallingContainer: HTMLDivElement | null = document.querySelector('#falling-effects');
+
     const createElement = (text: string): HTMLDivElement => {
         const element = document.createElement('div');
         element.className = 'falling-animate';
@@ -26,7 +28,7 @@ export const useFallingEffect = (fallingText: string) => {
             const duration = getRandomSpeed();
             poo.style.animationDuration = `${duration}s`;
 
-            document.body.appendChild(poo);
+            fallingContainer?.appendChild(poo);
 
             setTimeout(() => poo.remove(), duration * 1000); // Удаляем после анимации
         }

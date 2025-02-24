@@ -12,6 +12,7 @@
     <VueQueryDevtools />
 
     <div id="modals"></div>
+    <div id="falling-effects"></div>
 </template>
 
 <style scoped>

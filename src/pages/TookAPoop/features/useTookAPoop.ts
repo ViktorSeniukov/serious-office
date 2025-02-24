@@ -19,6 +19,10 @@ export const useTookAPoop = () => {
 
     const userName = ref<string>('');
 
+    const setUserName = (): void => {
+        userName.value = cookies.get('user_name');
+    };
+
     const lastClickTime = ref<number>(0);
 
     const {loadCssForFalling, createEffect} = useFallingEffect('💩');
@@ -37,8 +41,6 @@ export const useTookAPoop = () => {
     const cooldown = 30 * 1000;
 
     const onClickPoop = () => {
-        showModal();
-
         const now = Date.now();
 
         if (now - lastClickTime.value < cooldown) {
@@ -52,14 +54,19 @@ export const useTookAPoop = () => {
             createEffect();
         }
 
-        fetch(`${BASE_URL}/api/poop`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            },
-            body: JSON.stringify({ userName: unref(userName) || 'Кто-то' })
-        });
+        try {
+            fetch(`${BASE_URL}/poop`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({ userName: unref(userName) || 'Кто-то' })
+            })
+              .then(() => cookies.set('user_name', unref(userName)));
+        } catch (error) {
+            throw error;
+        }
     };
 
     return {
@@ -67,6 +74,7 @@ export const useTookAPoop = () => {
         setStartedTime,
         onClickPoop,
         userName,
-        isShowModal
+        isShowModal,
+        setUserName
     };
 };

@@ -10,12 +10,14 @@
         setStartedTime,
         onClickPoop,
         userName,
-        isShowModal
+        isShowModal,
+        setUserName
     } = useTookAPoop();
 
     onMounted(() => {
         loadCssForFalling();
         setStartedTime();
+        setUserName();
     });
 </script>
 
