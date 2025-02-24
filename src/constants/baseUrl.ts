@@ -1,2 +1,5 @@
-export const BASE_URL = 'https://serious-office-api-2363c7d5174a.herokuapp.com/api/v1';
+const API_URL = import.meta.env.VITE_API_URL as string || '';
+const API_VERSION = import.meta.env.VITE_API_VERSION as string || '';
+
+export const BASE_API_URL = `${API_URL}/api/${API_VERSION}`;
 // export const BASE_URL = 'http://localhost:3000/api/v1';

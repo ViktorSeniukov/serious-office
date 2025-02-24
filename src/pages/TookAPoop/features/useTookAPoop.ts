@@ -2,7 +2,7 @@ import { computed, ref, unref } from 'vue';
 import Cookies, { type CookieChangeOptions } from 'universal-cookie';
 import { useFallingEffect } from '@/features/useFallingEffect.ts';
 import { useFeatureFlags } from '@/features/useFeatureFlags.ts';
-import { BASE_URL } from '@/constants/baseUrl.ts';
+import { BASE_API_URL } from '@/constants/baseUrl.ts';
 
 export const useTookAPoop = () => {
     const { data } = useFeatureFlags();
@@ -55,7 +55,7 @@ export const useTookAPoop = () => {
         }
 
         try {
-            fetch(`${BASE_URL}/poop`, {
+            fetch(`${BASE_API_URL}/poop`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
