@@ -83,7 +83,7 @@
 
                 <img
                     class="rules__comics"
-                    src="./../assets/smoke-images/comics.png"
+                    src="@assets/smoke-images/comics.png"
                     alt="Комикс для правила Первый в лифте? Нажми кнопку"
                 >
             </li>
