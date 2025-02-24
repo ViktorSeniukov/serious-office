@@ -53,7 +53,10 @@ router.beforeEach(async (to) => {
     const availableRoutes = [...whiteListRoutes, ...data.available_routes];
 
     if (!availableRoutes.includes(to.name as string)) {
-        return { name: 'NotFound' };
+        return {
+            name: 'NotFound',
+            params: { pathMatch: to.path.substring(1).split('/') }
+        };
     }
 });
 
