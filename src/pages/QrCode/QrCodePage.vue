@@ -11,7 +11,7 @@
         if (unref(isFetched)) {
             redirect();
         }
-    });
+    }, {immediate: true});
 </script>
 
 <template>
