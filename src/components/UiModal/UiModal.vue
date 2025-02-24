@@ -56,6 +56,7 @@
 
 <style scoped>
 .ui-modal__title {
+  margin-top: 0;
     font-weight: 700;
 }
 </style>
