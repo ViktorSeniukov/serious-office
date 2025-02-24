@@ -3,6 +3,10 @@
     import { loadCss } from '@/utils/loadCss.ts';
     import { useHead } from '@unhead/vue';
     import TookAPoopPage from '@/pages/TookAPoop/TookAPoopPage.vue';
+    import {useTitle} from '@vueuse/core';
+
+    useTitle('Приятных покакушек');
+
     useHead({
         link: [
             {

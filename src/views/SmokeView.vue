@@ -3,6 +3,9 @@
     import { loadCss } from '@/utils/loadCss.ts';
     import { useHead } from '@unhead/vue';
     import SmokeRulesPage from '@/pages/SmokeRules/SmokeRulesPage.vue';
+    import {useTitle} from '@vueuse/core';
+
+    useTitle('Идем курить?');
 
     useHead({
         link: [
