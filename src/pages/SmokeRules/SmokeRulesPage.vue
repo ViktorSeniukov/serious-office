@@ -79,12 +79,12 @@
             </li>
 
             <li>
-                <h2>2. Первый в лифте? Нажми кнопку</h2>
+                <h2>2. Вышел первый? Вызови лифт</h2>
 
                 <img
                     class="rules__comics"
                     src="@assets/smoke-images/comics.png"
-                    alt="Комикс для правила Первый в лифте? Нажми кнопку"
+                    alt="Мужчина с короткими каштановыми волосами и бородой стоит в лифте, глядя на потолок. Фоном служат темные деревянные панели, создающие уютную атмосферу. У него широко раскрытые глаза, которые передают страх или удивление, как будто он видит над собой что-то неожиданное, в стиле комиксов."
                 >
             </li>
         </ul>
@@ -92,78 +92,16 @@
 </template>
 
 <style scoped>
-/* shared */
-.button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-size: 24px;
-  text-decoration: none;
-  text-transform: none;
-  color: light-dark(var(--light-main), var(--dark-main));
-  padding: var(--gutter) calc(var(--gutter) * 2);
-  backdrop-filter: blur(4px);
-}
-.button:not(.button--neon) {
-  min-height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.button--neon {
-  color: var(--neon-orange);
-  border: 1px solid var(--neon-orange);
-  box-shadow:
-    0 0 5px var(--neon-orange),
-    0 0 5px inset;
-}
-.button--neon:after {
-  position: absolute;
-  content: '';
-  top: 5px;
-  left: 6px;
-  width: 90%;
-  height: 70%;
-  border: 1px solid var(--neon-orange);
-  box-shadow: 0 0 5px var(--neon-orange) inset;
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-.button--neon:hover:after {
-  opacity: 1;
-}
-
 .content {
   max-width: 500px;
   margin: 0 auto;
 }
 
 /* main */
-* {
-  box-sizing: border-box;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-html {
-  background-color: light-dark(var(--light-main), var(--dark-main));
-
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  color: light-dark(var(--dark-main), var(--light-main));
-}
 
 .hero {
+  --neon-button: var(--neon-orange);
+
   position: relative;
   height: 320px;
 }
