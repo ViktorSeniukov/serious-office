@@ -11,7 +11,10 @@
 
     dayjs.extend(utc);
 
-    const lastSmokeTime = ref<string>('1212-12-12T12:12:12Z');
+    const lastSmokeTime = ref({
+        time: '',
+        message: 'Исследование вселенной'
+    });
 
     const subscribe = async () => {
         if (errorCount >= MAX_ERROR_COUNT) {
@@ -65,7 +68,7 @@
         <p>Последний раз пришли с перекура</p>
 
         <span>
-            <h3>{{ dayjs.utc(lastSmokeTime).local().format('HH:mm:ss') }}</h3>
+            <h3>{{ lastSmokeTime.message || dayjs.utc(lastSmokeTime.time).local().format('HH:mm:ss') }}</h3>
         </span>
 
         <button
