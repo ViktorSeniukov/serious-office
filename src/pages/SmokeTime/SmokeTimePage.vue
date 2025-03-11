@@ -2,13 +2,16 @@
     import { onMounted, ref } from 'vue';
     import axios from 'axios';
     import dayjs from 'dayjs';
+    import utc from 'dayjs/plugin/utc';
     import { BASE_API_URL } from '@/constants/baseUrl.ts';
     import { useHead } from '@unhead/vue';
 
     let errorCount = 0;
     const MAX_ERROR_COUNT = 1;
 
-    const lastSmokeTime = ref<string | null>(null);
+    dayjs.extend(utc);
+
+    const lastSmokeTime = ref<string>('1212-12-12T12:12:12Z');
 
     const subscribe = async () => {
         if (errorCount >= MAX_ERROR_COUNT) {
@@ -30,7 +33,7 @@
     };
 
     const onMessageSubmit = async (isCheck?: boolean) => {
-        const now = dayjs();
+        const now = dayjs.utc();
 
         await axios.post(`${BASE_API_URL}/smoke-time`, {
             date: now.format('YYYY-MM-DD'),
@@ -62,7 +65,7 @@
         <p>Последний раз пришли с перекура</p>
 
         <span>
-            <h3>{{ lastSmokeTime }}</h3>
+            <h3>{{ dayjs.utc(lastSmokeTime).local().format('HH:mm:ss') }}</h3>
         </span>
 
         <button
