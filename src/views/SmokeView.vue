@@ -23,13 +23,7 @@
         ],
         htmlAttrs: {
             lang: 'ru'
-        },
-        meta: [
-            {
-                name: 'robots',
-                content: 'noindex, nofollow'
-            }
-        ]
+        }
     });
 </script>
 
