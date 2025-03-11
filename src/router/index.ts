@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import TestView from '../views/TestView.vue';
-import SmokeView from '../views/SmokeView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import QrCodeView from '../views/QrCodeView.vue';
 import TookAPoopView from '@/views/TookAPoopView.vue';
@@ -21,7 +20,7 @@ const router = createRouter({
         {
             path: '/smoke',
             name: 'smoke',
-            component: SmokeView,
+            component: () => import('../views/SmokeView.vue'),
             children: [
                 {
                     path: '',
