@@ -1,15 +1,18 @@
-import { fileURLToPath, URL } from 'node:url';
+import { fileURLToPath, resolve, URL } from 'node:url';
 
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
+import tailwindcss from '@tailwindcss/vite';
+import { plugins } from '@vue/eslint-config-prettier/skip-formatting';
 
 // https://vite.dev/config/
 export default defineConfig({
   base: '/',
   plugins: [
     vue(),
-    vueDevTools()
+    vueDevTools(),
+    tailwindcss()
   ],
   resolve: {
     alias: {

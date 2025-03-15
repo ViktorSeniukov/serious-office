@@ -2,9 +2,20 @@ import { createRouter, createWebHistory } from 'vue-router';
 import TestView from '../views/TestView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import QrCodeView from '../views/QrCodeView.vue';
+
 import TookAPoopView from '@/views/TookAPoopView.vue';
+
+// Smoke
 import SmokeRulesPage from '@/pages/SmokeRules/SmokeRulesPage.vue';
 import SmokeTimePage from '@/pages/SmokeTime/SmokeTimePage.vue';
+
+// Sos
+import SosStatusPage from '@/pages/Sos/SosStatusPage.vue';
+import SosPage from '@/pages/Sos/SosPage.vue';
+
+// Login
+import LoginPage from '@/pages/Login/LoginPage.vue'
+
 // import { inject } from 'vue';
 // import { QueryClient } from '@tanstack/vue-query';
 // import { fetchFeatureFlags } from '@/features/fetchFeatureFlags.ts';
@@ -43,6 +54,35 @@ const router = createRouter({
             path: '/qrcode',
             name: 'qrcode',
             component: QrCodeView
+        },
+        {
+            path: '/sos',
+            name: 'sos',
+            component: () => import('../views/SosView.vue'),
+            children: [
+                {
+                    path: '',
+                    name: 'sos_create',
+                    component: SosPage
+                },
+                {
+                    path: 'status',
+                    name: 'sos_status',
+                    component: SosStatusPage
+                }
+            ]
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: () => import('../views/LoginView.vue'),
+            children: [
+                {
+                    path: '',
+                    name: 'login_page',
+                    component: LoginPage
+                }
+            ]
         },
         {
             path: '/:pathMatch(.*)*',
