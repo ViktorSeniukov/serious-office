@@ -19,6 +19,7 @@
     import type { ISosRequest } from '@/pages/Sos/types/ISosRequest.ts';
     import type { ISosResponse } from '@/pages/Sos/types/ISosResponse.ts';
     import SosStatusContent from '@/pages/Sos/components/SosStatusContent.vue';
+    import { useCookies } from '@vueuse/integrations/useCookies'
 
     const toiletType = ref<ToiletTypes | null>(null);
     const roomNumber = ref<number | null>(null);
@@ -36,7 +37,13 @@
             message: unref(requestMessage) || ''
         };
 
-        const { data } = await axios.post<ISosResponse>(`${BASE_API_URL}/sos`, formState);
+        const cookies = useCookies();
+
+        const { data } = await axios.post<ISosResponse>(`${BASE_API_URL}/sos`, formState, {
+            headers: {
+                Authorization: cookies.get('access_token')
+            }
+        });
 
         sosResponse.value = data?.data || null;
         isShowModal.value = true;

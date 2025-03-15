@@ -14,7 +14,12 @@ import SosStatusPage from '@/pages/Sos/SosStatusPage.vue';
 import SosPage from '@/pages/Sos/SosPage.vue';
 
 // Login
-import LoginPage from '@/pages/Login/LoginPage.vue'
+import LoginPage from '@/pages/Login/LoginPage.vue';
+import { authGuard } from '@/router/duards/authGuard.ts';
+import { Roles } from '@/router/enums/Roles.ts';
+import axios from 'axios';
+import { BASE_API_URL } from '@/constants/baseUrl.ts';
+import { useCookies } from '@vueuse/integrations/useCookies';
 
 // import { inject } from 'vue';
 // import { QueryClient } from '@tanstack/vue-query';
@@ -32,6 +37,7 @@ const router = createRouter({
             path: '/smoke',
             name: 'smoke',
             component: () => import('../views/SmokeView.vue'),
+            beforeEnter: (to, from, next) => authGuard(to, from, next, [Roles.USER, Roles.CHLEN]),
             children: [
                 {
                     path: '',
@@ -59,6 +65,7 @@ const router = createRouter({
             path: '/sos',
             name: 'sos',
             component: () => import('../views/SosView.vue'),
+            beforeEnter: (to, from, next) => authGuard(to, from, next, [Roles.USER, Roles.SOS_USER]),
             children: [
                 {
                     path: '',
@@ -90,6 +97,30 @@ const router = createRouter({
             component: NotFoundView
         }
     ]
+});
+
+router.beforeEach(async (to, _, next) => {
+    const cookies = useCookies();
+
+    console.log(cookies.get('access_token'));
+
+    try {
+        const { data } = await axios.get(`${BASE_API_URL}/token`, {
+            headers: {
+                Authorization: cookies.get('access_token')
+            }
+        });
+
+        console.log(data);
+
+        if (data?.data.code === 418) {
+            return next('/login');
+        }
+
+        cookies.set('access_token', data?.data?.access_token);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 // router.beforeEach(async (to) => {
