@@ -5,13 +5,11 @@
     import Fieldset from 'primevue/fieldset';
     import Textarea from 'primevue/textarea';
     import Button from 'primevue/button';
-    import Message from 'primevue/message';
     import { Form } from '@primevue/forms';
-    import type { FormSubmitEvent } from '@primevue/forms';
     import Dialog from 'primevue/dialog';
 
     import { ToiletTypes } from '@/pages/Sos/enums/ToiletTypes.ts';
-    import { ref, unref } from 'vue';
+    import { computed, ref, unref } from 'vue';
     import { SosRequestTypes } from '@/pages/Sos/enums/SosRequestTypes.ts';
 
     import axios from 'axios';
@@ -19,17 +17,53 @@
     import type { ISosRequest } from '@/pages/Sos/types/ISosRequest.ts';
     import type { ISosResponse } from '@/pages/Sos/types/ISosResponse.ts';
     import SosStatusContent from '@/pages/Sos/components/SosStatusContent.vue';
-    import { useCookies } from '@vueuse/integrations/useCookies'
+    import { useCookies } from '@vueuse/integrations/useCookies';
+    import { isDefined } from '@vueuse/core';
+    import { useToast } from 'primevue';
 
-    const toiletType = ref<ToiletTypes | null>(null);
+    const cookies = useCookies();
+
+    const toiletType = ref<ToiletTypes>(cookies.get('toilet_type') || null);
     const roomNumber = ref<number | null>(null);
     const requestType = ref<SosRequestTypes | null>(null);
-    const requestMessage = ref<string | null>(null);
+    const requestMessage = ref<string>('');
 
     const isShowModal = ref<boolean>(false);
     const sosResponse = ref<ISosRequest | null>(null);
 
+    const toast = useToast();
+
+    const validateForm = () => {
+        if (!(isDefined(toiletType) && isDefined(roomNumber) && isDefined(requestType))) {
+            toast.add({
+                severity: 'error',
+                summary: 'Отправка невозможна',
+                detail: 'Вберете туалет, номер кабинки и тип запроса',
+                life: 5000
+            });
+
+            return false;
+        }
+
+        if (unref(requestType) === SosRequestTypes.OTHER && unref(requestMessage).trim() === '') {
+            toast.add({
+                severity: 'error',
+                summary: 'Отправка невозможна',
+                detail: 'При выбранном типе Другое необходимо написать сообщение',
+                life: 5000
+            });
+
+            return false;
+        }
+
+        return true;
+    };
+
     const onSubmit = async () => {
+        if (!validateForm()) {
+            return;
+        }
+
         const formState: ISosRequest = {
             toiletType: unref(toiletType) || ('' as ToiletTypes),
             roomNumber: unref(roomNumber) || 0,
@@ -37,17 +71,31 @@
             message: unref(requestMessage) || ''
         };
 
-        const cookies = useCookies();
-
         const { data } = await axios.post<ISosResponse>(`${BASE_API_URL}/sos`, formState, {
             headers: {
                 Authorization: cookies.get('access_token')
             }
         });
 
+        cookies.set('toilet_type', unref(toiletType));
+
         sosResponse.value = data?.data || null;
         isShowModal.value = true;
     };
+
+    const resetForm = () => {
+        toiletType.value =cookies.get('toilet_type');
+        roomNumber.value = null;
+        requestType.value = null;
+        requestMessage.value = '';
+    };
+
+    const onCloseModal = () => {
+        resetForm();
+        isShowModal.value = false;
+    };
+
+    const isToiletTypeValid = computed(() => unref(toiletType) !== null);
 </script>
 
 <template>
@@ -64,9 +112,6 @@
 
         <Form
             @submit="onSubmit"
-            v-slot="$form"
-            :validateOnValueUpdate="['requestType', 'message']"
-            :validateOnBlur="true"
             class="flex flex-col gap-4 mt-4"
         >
             <Fieldset
@@ -74,14 +119,16 @@
                 toggleable>
                 <RadioButtonGroup
                     v-model="toiletType"
+                    :invalid="!isToiletTypeValid"
                     name="toiletType"
-                    class="flex flex-wrap">
-                    <label class="cursor-pointer flex gap-2 py-3 px-4">
+                    class="flex flex-wrap"
+                >
+                    <label class="cursor-pointer flex items-center gap-2 py-3 px-4">
                         <RadioButton :value="ToiletTypes.MAN" />
 
                         Мужской
                     </label>
-                    <label class="cursor-pointer flex gap-2 py-3 px-4">
+                    <label class="cursor-pointer flex items-center gap-2 py-3 px-4">
                         <RadioButton :value="ToiletTypes.WOMAN" />
 
                         Женский
@@ -91,11 +138,14 @@
 
             <Fieldset
                 legend="Выберете номер кабинки"
-                toggleable>
+                :toggleable="isToiletTypeValid"
+                :collapsed="!isToiletTypeValid"
+            >
                 <SelectButton
                     v-model="roomNumber"
-                    name="roomNumber"
+                    :disabled="toiletType === null"
                     :options="['1', '2', '3']"
+                    name="roomNumber"
                     class="mb-5 w-full sos-form-room"
                 />
 
@@ -135,7 +185,9 @@
 
             <Fieldset
                 legend="Что требуется"
-                toggleable>
+                :toggleable="isToiletTypeValid"
+                :collapsed="!isToiletTypeValid"
+            >
                 <RadioButtonGroup
                     v-model="requestType"
                     :formControl="{ validateOnValueUpdate: true }"
@@ -182,25 +234,17 @@
 
             <Fieldset
                 legend="Оставьте сообщение"
-                toggleable>
+                :toggleable="isToiletTypeValid"
+                :collapsed="!isToiletTypeValid"
+            >
                 <Textarea
                     v-model="requestMessage"
                     :variant="'filled'"
-                    :minlength="5"
                     autoResize
                     name="message"
                     rows="5"
                     class="w-full"
                 />
-                <Message
-                    v-if="
-                        $form?.requestType?.value === SosRequestTypes.OTHER &&
-                            $form?.message?.value?.toString().length < 5
-                    "
-                    severity="error"
-                >
-                    Поле обязательно когда выбран тип запороса "Другое"
-                </Message>
             </Fieldset>
 
             <Button type="submit"> Отправить заявку </Button>
@@ -219,6 +263,7 @@
         >
             <template #footer>
                 <Button
+                    @click="onCloseModal"
                     type="button"
                     class="w-full"
                 >

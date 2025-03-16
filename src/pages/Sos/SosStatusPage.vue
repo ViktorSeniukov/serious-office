@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import { useRoute } from 'vue-router';
     import SosStatusContent from '@/pages/Sos/components/SosStatusContent.vue';
-    import type { ToiletTypes } from '@/pages/Sos/enums/ToiletTypes.ts'
-    import type { SosRequestTypes } from '@/pages/Sos/enums/SosRequestTypes.ts'
+    import type { ToiletTypes } from '@/pages/Sos/enums/ToiletTypes.ts';
+    import type { SosRequestTypes } from '@/pages/Sos/enums/SosRequestTypes.ts';
 
     const {
         toilet,
@@ -20,7 +20,7 @@
             :toiletType="toilet as ToiletTypes"
             :roomNumber="Number(room)"
             :request="request as SosRequestTypes"
-            :message="message as string || 'Вы не отправляли сообщение'"
+            :message="message as string"
             class="mx-4 shadow-xl py-10 px-6"
         />
     </div>

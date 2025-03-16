@@ -13,7 +13,9 @@ export const useAuth = () => {
 
         cookies.set('access_token', data?.data?.access_token);
 
-        return await router.push('/');
+        const redirectTo = new URL(location.href).searchParams.get('redirectTo');
+
+        return await router.push(redirectTo || '/');
     };
 
     const authCb = (user: ITgWidgetLogin) => {
@@ -24,7 +26,20 @@ export const useAuth = () => {
         }
     };
 
+    const updateToken = async () => {
+        const cookies = useCookies();
+
+        const {data} = await axios.get(`${BASE_API_URL}/token`, {
+            headers: {
+                Authorization: cookies.get('access_token')
+            }
+        });
+
+        cookies.set('access_token', data?.data?.access_token);
+    };
+
     return {
-        authCb
+        authCb,
+        updateToken
     };
 };

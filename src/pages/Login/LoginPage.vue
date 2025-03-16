@@ -11,10 +11,21 @@
 </script>
 
 <template>
-    <TgWidgetLogin
-        @callback="loginCallBack"
-        telegramLogin="sharpoffice_io_bot"
-        mode="callback" />
+    <div class="login-page">
+        <TgWidgetLogin
+            @callback="loginCallBack"
+            telegramLogin="sharpoffice_io_bot"
+            mode="callback"
+        />
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.login-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+</style>

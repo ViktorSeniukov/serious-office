@@ -9,11 +9,20 @@ export const authGuard = (
     to: RouteLocationNormalized,
     from: RouteLocationNormalizedLoaded,
     next: NavigationGuardNext,
-    neededRoles?: string[]
+    neededRoles?: Roles[]
 ) => {
     const cookies = useCookies();
 
     const token = cookies.get('access_token');
+
+    if (!token) {
+        return next({
+            path: '/login',
+            query: {
+                redirectTo: to.fullPath
+            }
+        });
+    }
 
     const {payload} = useJwt<IJWTPayload>(token);
 
@@ -21,11 +30,27 @@ export const authGuard = (
     const roles = unref(payload)?.roles;
 
     if (Date.now() >= (exp || 0) * 1000) {
-        return next('/login');
+        return next({
+            path: '/login',
+            query: {
+                redirectTo: to.fullPath
+            }
+        });
     }
 
-    if (neededRoles && !(roles?.filter((role: Roles) => neededRoles?.includes(role)).length === neededRoles?.length)) {
-        return next('/login');
+    if (!neededRoles || neededRoles.length === 0) {
+        return next();
+    }
+
+    const hasRequiredRoles = neededRoles.every((role) => roles?.includes(role));
+
+    if (!hasRequiredRoles) {
+        return next({
+            path: '/access-define',
+            query: {
+                redirectTo: to.fullPath
+            }
+        });
     }
 
     return next();

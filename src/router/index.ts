@@ -10,16 +10,13 @@ import SmokeRulesPage from '@/pages/SmokeRules/SmokeRulesPage.vue';
 import SmokeTimePage from '@/pages/SmokeTime/SmokeTimePage.vue';
 
 // Sos
-import SosStatusPage from '@/pages/Sos/SosStatusPage.vue';
+// import SosStatusPage from '@/pages/Sos/SosStatusPage.vue';
 import SosPage from '@/pages/Sos/SosPage.vue';
 
 // Login
 import LoginPage from '@/pages/Login/LoginPage.vue';
 import { authGuard } from '@/router/duards/authGuard.ts';
 import { Roles } from '@/router/enums/Roles.ts';
-import axios from 'axios';
-import { BASE_API_URL } from '@/constants/baseUrl.ts';
-import { useCookies } from '@vueuse/integrations/useCookies';
 
 // import { inject } from 'vue';
 // import { QueryClient } from '@tanstack/vue-query';
@@ -65,29 +62,34 @@ const router = createRouter({
             path: '/sos',
             name: 'sos',
             component: () => import('../views/SosView.vue'),
-            beforeEnter: (to, from, next) => authGuard(to, from, next, [Roles.USER, Roles.SOS_USER]),
             children: [
                 {
                     path: '',
                     name: 'sos_create',
-                    component: SosPage
+                    component: SosPage,
+                    beforeEnter: (to, from, next) => authGuard(to, from, next, [Roles.USER, Roles.SOS_USER])
                 },
                 {
                     path: 'status',
                     name: 'sos_status',
-                    component: SosStatusPage
+                    component: () => import('../pages/Sos/SosStatusPage.vue')
                 }
             ]
         },
         {
-            path: '/login',
-            name: 'login',
+            path: '/',
+            name: 'system',
             component: () => import('../views/LoginView.vue'),
             children: [
                 {
-                    path: '',
+                    path: 'login',
                     name: 'login_page',
                     component: LoginPage
+                },
+                {
+                    path: '/access-define',
+                    name: 'access_define_page',
+                    component: () => import('../pages/AccessDenied/AccessDeniedPage.vue')
                 }
             ]
         },
@@ -97,30 +99,6 @@ const router = createRouter({
             component: NotFoundView
         }
     ]
-});
-
-router.beforeEach(async (to, _, next) => {
-    const cookies = useCookies();
-
-    console.log(cookies.get('access_token'));
-
-    try {
-        const { data } = await axios.get(`${BASE_API_URL}/token`, {
-            headers: {
-                Authorization: cookies.get('access_token')
-            }
-        });
-
-        console.log(data);
-
-        if (data?.data.code === 418) {
-            return next('/login');
-        }
-
-        cookies.set('access_token', data?.data?.access_token);
-    } catch (error) {
-        console.log(error);
-    }
 });
 
 // router.beforeEach(async (to) => {

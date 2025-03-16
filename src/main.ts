@@ -12,6 +12,7 @@ import { VueQueryPlugin, QueryClient } from '@tanstack/vue-query';
 import { vhPlugin } from '@/plugins/vhPlugin.ts';
 import {head} from '@/plugins/head.ts';
 import Aura from '@primeuix/themes/aura';
+import ToastService from 'primevue/toastservice';
 
 const app = createApp(App);
 
@@ -25,6 +26,8 @@ app.use(PrimeVue, {
         preset: Aura
     }
 });
+
+app.use(ToastService);
 
 const DEFAULT_STALE_TIME = 1000 * 60 * 60; // 1 hour
 const DEFAULT_GC_TIME = DEFAULT_STALE_TIME * 5; // 5 hours

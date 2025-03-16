@@ -58,7 +58,7 @@
             </svg>
         </span>
 
-        <dl class="grid grid-cols-2">
+        <dl class="grid grid-cols-2 gap-2">
 
             <dt class="font-bold">Туалет</dt>
             <dd>{{ getToiletType() }}</dd>
@@ -69,8 +69,10 @@
             <dt class="font-bold">Запрос</dt>
             <dd>{{ getSosRequest() }}</dd>
 
-            <dt class="font-bold">Сообщение</dt>
-            <dd>{{ message }}</dd>
+            <template v-if="message">
+                <dt class="font-bold">Сообщение</dt>
+                <dd>{{ message }}</dd>
+            </template>
         </dl>
 
         <footer class="mt-8 w-full">
