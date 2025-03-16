@@ -2,9 +2,22 @@ import { createRouter, createWebHistory } from 'vue-router';
 import TestView from '../views/TestView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import QrCodeView from '../views/QrCodeView.vue';
+
 import TookAPoopView from '@/views/TookAPoopView.vue';
+
+// Smoke
 import SmokeRulesPage from '@/pages/SmokeRules/SmokeRulesPage.vue';
 import SmokeTimePage from '@/pages/SmokeTime/SmokeTimePage.vue';
+
+// Sos
+// import SosStatusPage from '@/pages/Sos/SosStatusPage.vue';
+import SosPage from '@/pages/Sos/SosPage.vue';
+
+// Login
+import LoginPage from '@/pages/Login/LoginPage.vue';
+import { authGuard } from '@/router/duards/authGuard.ts';
+import { Roles } from '@/router/enums/Roles.ts';
+
 // import { inject } from 'vue';
 // import { QueryClient } from '@tanstack/vue-query';
 // import { fetchFeatureFlags } from '@/features/fetchFeatureFlags.ts';
@@ -21,6 +34,7 @@ const router = createRouter({
             path: '/smoke',
             name: 'smoke',
             component: () => import('../views/SmokeView.vue'),
+            beforeEnter: (to, from, next) => authGuard(to, from, next, [Roles.USER, Roles.CHLEN]),
             children: [
                 {
                     path: '',
@@ -43,6 +57,41 @@ const router = createRouter({
             path: '/qrcode',
             name: 'qrcode',
             component: QrCodeView
+        },
+        {
+            path: '/sos',
+            name: 'sos',
+            component: () => import('../views/SosView.vue'),
+            children: [
+                {
+                    path: '',
+                    name: 'sos_create',
+                    component: SosPage,
+                    beforeEnter: (to, from, next) => authGuard(to, from, next, [Roles.USER, Roles.SOS_USER])
+                },
+                {
+                    path: 'status',
+                    name: 'sos_status',
+                    component: () => import('../pages/Sos/SosStatusPage.vue')
+                }
+            ]
+        },
+        {
+            path: '/',
+            name: 'system',
+            component: () => import('../views/LoginView.vue'),
+            children: [
+                {
+                    path: 'login',
+                    name: 'login_page',
+                    component: LoginPage
+                },
+                {
+                    path: '/access-define',
+                    name: 'access_define_page',
+                    component: () => import('../pages/AccessDenied/AccessDeniedPage.vue')
+                }
+            ]
         },
         {
             path: '/:pathMatch(.*)*',
