@@ -38,7 +38,7 @@
             toast.add({
                 severity: 'error',
                 summary: 'Отправка невозможна',
-                detail: 'Вберете туалет, номер кабинки и тип запроса',
+                detail: 'Выберите туалет, номер кабинки и тип запроса',
                 life: 5000
             });
 
@@ -49,7 +49,7 @@
             toast.add({
                 severity: 'error',
                 summary: 'Отправка невозможна',
-                detail: 'При выбранном типе Другое необходимо написать сообщение',
+                detail: 'При выборе типа "Другое" необходимо написать сообщение',
                 life: 5000
             });
 
@@ -192,11 +192,11 @@
                     v-model="requestType"
                     :formControl="{ validateOnValueUpdate: true }"
                     name="requestType"
-                    class="grid grid-cols-2 gap-2 w-full"
+                    class="grid grid-cols-2 gap-2 w-full grid-rows-1"
                 >
                     <label
                         :class="{ 'image-radio-label--checked': requestType === SosRequestTypes.TOILET_PAPER }"
-                        class="image-radio-label w-full aspect-square p-4 border-1 border-[var(--p-radiobutton-border-color)] rounded-md flex items-center justify-center"
+                        class="image-radio-label w-full p-4 border-1 border-[var(--p-radiobutton-border-color)] rounded-md flex items-center justify-start flex-col gap-2 font-semibold"
                     >
                         <RadioButton
                             :value="SosRequestTypes.TOILET_PAPER"
@@ -204,17 +204,24 @@
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24">
+                            viewBox="0 0 24 24"
+                            width="100%"
+                            height="100%"
+                            class="max-w-[110px] h-fit"
+                        >
                             <path
                                 fill="currentColor"
                                 d="M20,0H6.5C3.977,0,2,3.075,2,7v14c0,1.103-.897,2-2,2v1H13.5c1.93,0,3.5-1.57,3.5-3.5v-4.5h3c2.243,0,4-3.514,4-8S22.243,0,20,0Zm-4,8v12.5c0,1.379-1.121,2.5-2.5,2.5H2.234c.476-.531,.766-1.232,.766-2V7c0-3.252,1.603-6,3.5-6h11.535c-1.224,1.353-2.035,3.952-2.035,7Zm1,7v-1.655c.294,.662,.643,1.222,1.035,1.655h-1.035Zm3,0c-1.419,0-3-2.875-3-7s1.581-7,3-7,3,2.875,3,7-1.581,7-3,7Zm1-7c0,.828-.448,1.5-1,1.5s-1-.672-1-1.5,.448-1.5,1-1.5,1,.672,1,1.5Z"
                             />
                         </svg>
+                        <span class="h-full flex items-center justify-center text-center flex-1">
+                            Туалетная бумага
+                        </span>
                     </label>
 
                     <label
                         :class="{ 'image-radio-label--checked': requestType === SosRequestTypes.OTHER }"
-                        class="image-radio-label w-full aspect-square p-4 border-1 border-[var(--p-radiobutton-border-color)] rounded-md flex items-center justify-center"
+                        class="image-radio-label w-full p-4 border-1 border-[var(--p-radiobutton-border-color)] rounded-md flex items-center justify-start flex-col gap-2 font-semibold"
                     >
                         <RadioButton
                             :value="SosRequestTypes.OTHER"
@@ -222,12 +229,19 @@
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24">
+                            viewBox="0 0 24 24"
+                            width="100%"
+                            height="100%"
+                            class="max-w-[110px] h-fit"
+                        >
                             <path
                                 fill="currentColor"
                                 d="m0,2.5v7.5h10V0H2.5C1.122,0,0,1.122,0,2.5Zm9,6.5H1V2.5c0-.827.673-1.5,1.5-1.5h6.5v8Zm13-6.5c0-1.378-1.122-2.5-2.5-2.5h-7.5v10h10V2.5Zm-1,6.5h-8V1h6.5c.827,0,1.5.673,1.5,1.5v6.5ZM0,19.5c0,1.378,1.122,2.5,2.5,2.5h7.5v-10H0v7.5Zm1-6.5h8v8H2.5c-.827,0-1.5-.673-1.5-1.5v-6.5Zm22.605,9.898l-3.605-3.605c.616-.77,1-1.733,1-2.793,0-2.481-2.019-4.5-4.5-4.5s-4.5,2.019-4.5,4.5,2.019,4.5,4.5,4.5c1.06,0,2.023-.384,2.793-1l3.605,3.605.707-.707Zm-7.105-2.898c-1.93,0-3.5-1.57-3.5-3.5s1.57-3.5,3.5-3.5,3.5,1.57,3.5,3.5-1.57,3.5-3.5,3.5Z"
                             />
                         </svg>
+                        <span class="h-full flex items-center justify-center text-center flex-1">
+                            Другое
+                        </span>
                     </label>
                 </RadioButtonGroup>
             </Fieldset>
