@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import TgWidgetLogin from './components/TgWidgetLogin.vue';
+    import TgWidgetLogin from '@/pages/Login/components/TgWidgetLogin.vue';
     import type { ITgWidgetLogin } from '@/pages/Login/types/ITgWidgetLogin.ts';
     import { useAuth } from '@/pages/Login/features/useAuth.ts';
 

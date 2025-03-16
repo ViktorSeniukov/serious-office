@@ -77,12 +77,11 @@
 
         <footer class="mt-8 w-full">
             <slot name="footer">
-                <Button asChild
-                >
+                <Button asChild>
                     <template #default="slotProps">
                         <RouterLink
                             to="/sos"
-                            :class="slotProps?.class || ''"
+                            :class="(slotProps as any)?.class || ''"
                             class="w-full"
                         >
                             Создать новую заявку
