@@ -34,7 +34,6 @@ const router = createRouter({
             path: '/smoke',
             name: 'smoke',
             component: () => import('../views/SmokeView.vue'),
-            beforeEnter: (to, from, next) => authGuard(to, from, next, [Roles.USER, Roles.CHLEN]),
             children: [
                 {
                     path: '',
