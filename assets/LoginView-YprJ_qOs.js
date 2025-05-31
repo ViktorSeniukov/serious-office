@@ -1,0 +1,1 @@
+import{_ as o,b as t,e as c,r as n,o as s}from"./index-fEy0H4tv.js";const r={},_={class:"login-view"};function a(i,d){const e=n("RouterView");return s(),t("div",_,[c(e)])}const l=o(r,[["render",a],["__scopeId","data-v-df690951"]]);export{l as default};

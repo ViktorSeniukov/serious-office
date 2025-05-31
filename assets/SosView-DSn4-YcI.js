@@ -1,0 +1,1 @@
+import{_ as o,b as s,e as t,r as c,o as n}from"./index-fEy0H4tv.js";const r={},a={class:"sos-view"};function _(d,i){const e=c("RouterView");return n(),s("div",a,[t(e)])}const f=o(r,[["render",_],["__scopeId","data-v-a336d6bd"]]);export{f as default};

@@ -1,0 +1,15 @@
+.falling-animate {
+    position: absolute;
+    top: 20px;
+    font-size: 24px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(calc(var(--vh) * 100));
+    }
+}
